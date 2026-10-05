@@ -3,16 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Richard Zorilla | Portfolio</title>
-  <meta name="description" content="Richard Zorilla's personal portfolio.">
+  <title>Richard Zorilla | Computer Engineer</title>
+  <meta name="description" content="Richard Zorilla is a computer engineer working in embedded systems, hardware design, circuits, and reverse engineering.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="navbar">
-    <a class="logo" href="#home">RZ.</a>
-    <nav>
+    <a class="logo" href="#home" aria-label="Richard Zorilla, home">RZ.</a>
+    <nav aria-label="Main">
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
+      <a href="#interests">Interests</a>
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -20,75 +24,132 @@
 
   <main>
     <section id="home" class="hero">
-      <div>
-        <p class="eyebrow">HELLO, I'M</p>
-        <h1>Richard <span>Zorilla</span></h1>
-        <p class="subtitle">Student • Developer • Engineering Enthusiast</p>
-        <p class="intro">I enjoy building practical projects, learning new technologies, and turning ideas into working solutions.</p>
+      <div class="hero-copy">
+        <p class="hello">Hello, I'm</p>
+        <h1>Richard Zorilla</h1>
+        <p class="subtitle">Computer Engineer</p>
+        <p class="intro">I design and build hardware and embedded systems, from circuits and firmware to 3D-modelled enclosures. I like understanding how things work and turning that into working solutions.</p>
         <div class="buttons">
-          <a class="btn primary" href="#projects">View My Work</a>
-          <a class="btn secondary" href="#contact">Contact Me</a>
+          <a class="btn primary" href="#projects">View my work</a>
+          <a class="btn secondary" href="#contact">Contact me</a>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="avatar">RZ</div>
-        <p>Welcome to my portfolio.</p>
-      </div>
+
+      <aside class="spec" aria-label="Profile summary">
+        <div class="spec-head">
+          <div class="avatar">RZ</div>
+          <div>
+            <p class="spec-name">Richard Zorilla</p>
+            <p class="spec-role">Computer Engineer</p>
+          </div>
+        </div>
+        <dl>
+          <div><dt>Languages</dt><dd>C++, Java, MATLAB, PHP</dd></div>
+          <div><dt>Hardware</dt><dd>Verilog, Embedded systems</dd></div>
+          <div><dt>Design</dt><dd>Fusion 360</dd></div>
+          <div><dt>Focus</dt><dd>Hardware, circuits, reverse engineering</dd></div>
+        </dl>
+      </aside>
     </section>
 
     <section id="about" class="section">
-      <p class="eyebrow">ABOUT ME</p>
-      <h2>A little about me</h2>
+      <h2>About me</h2>
       <p class="section-text">
-        I'm Richard Zorilla, a student interested in programming, technology, electronics,
-        engineering, and creative digital projects. I'm continuously improving my skills by
-        working on school projects and learning through hands-on experience.
+        I'm Richard Zorilla, a computer engineer with a strong foundation in programming and digital hardware.
+        I work in C++, Java, MATLAB, PHP, and Verilog, and I build embedded systems and 3D designs in Fusion 360.
+      </p>
+      <p class="section-text">
+        I'm most interested in the point where software meets hardware: designing circuits, programming
+        microcontrollers, and taking existing devices apart to learn how they work. I keep improving by building
+        hands-on projects.
       </p>
     </section>
 
     <section id="skills" class="section">
-      <p class="eyebrow">SKILLS</p>
-      <h2>What I work with</h2>
+      <h2>Skills</h2>
+      <p class="section-text">The languages, tools, and areas I work in.</p>
       <div class="grid">
-        <div class="card"><h3>Programming</h3><p>C++ • Java • Python</p></div>
-        <div class="card"><h3>Web</h3><p>HTML • CSS • JavaScript</p></div>
-        <div class="card"><h3>Engineering</h3><p>CAD • Electronics • Embedded Systems</p></div>
-        <div class="card"><h3>Tools</h3><p>Git • GitHub • VS Code</p></div>
+        <div class="card">
+          <h3>Programming</h3>
+          <ul class="chips">
+            <li>C++</li><li>Java</li><li>MATLAB</li><li>PHP</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Hardware &amp; embedded</h3>
+          <ul class="chips">
+            <li>Verilog</li><li>Embedded systems</li><li>Circuits</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>3D design</h3>
+          <ul class="chips">
+            <li>Fusion 360</li><li>CAD modelling</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Web &amp; tools</h3>
+          <ul class="chips">
+            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Git</li><li>GitHub</li><li>VS Code</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="interests" class="section">
+      <h2>Interests</h2>
+      <p class="section-text">What I like to spend my time on.</p>
+      <div class="grid interests">
+        <div class="card">
+          <h3>Hardware design</h3>
+          <p>Designing and building physical systems from the ground up.</p>
+        </div>
+        <div class="card">
+          <h3>Embedded systems</h3>
+          <p>Writing efficient code for devices with real-world inputs and outputs.</p>
+        </div>
+        <div class="card">
+          <h3>Reverse engineering</h3>
+          <p>Taking devices apart to understand how they work and why they were built that way.</p>
+        </div>
+        <div class="card">
+          <h3>Circuits</h3>
+          <p>Analysing, prototyping, and debugging electronic circuits.</p>
+        </div>
       </div>
     </section>
 
     <section id="projects" class="section">
-      <p class="eyebrow">PROJECTS</p>
-      <h2>Some of my work</h2>
+      <h2>Projects</h2>
+      <p class="section-text">A selection of what I've built and designed.</p>
       <div class="grid projects">
         <article class="card project">
-          <div class="project-number">01</div>
           <h3>Robot Repacking System</h3>
           <p>A semi-automatic system concept for weighing and repacking products such as salt, sugar, and oil.</p>
+          <ul class="chips"><li>Automation</li><li>Embedded</li></ul>
         </article>
         <article class="card project">
-          <div class="project-number">02</div>
           <h3>Embedded Design Project</h3>
           <p>An engineering project focused on using electronics and embedded systems to solve a practical problem.</p>
+          <ul class="chips"><li>Electronics</li><li>Embedded systems</li></ul>
         </article>
         <article class="card project">
-          <div class="project-number">03</div>
           <h3>Personal Portfolio</h3>
           <p>This responsive website, built as a simple place to showcase my skills, projects, and interests.</p>
+          <ul class="chips"><li>HTML</li><li>CSS</li></ul>
         </article>
       </div>
     </section>
 
     <section id="contact" class="section contact">
-      <p class="eyebrow">CONTACT</p>
-      <h2>Let's connect.</h2>
+      <h2>Let's connect</h2>
       <p class="section-text">Have a project, question, or opportunity? Feel free to reach out.</p>
-      <a class="btn primary" href="mailto:zorillarichard88@gmail.com">Email Me</a>
+      <a class="btn primary" href="mailto:zorillarichard88@gmail.com">Email me</a>
     </section>
   </main>
 
   <footer>
-    <p>© 2026 Richard Zorilla. Built with HTML & CSS.</p>
+    <p>© 2026 Richard Zorilla. Built with HTML &amp; CSS.</p>
   </footer>
 </body>
 </html>
