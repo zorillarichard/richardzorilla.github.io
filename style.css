@@ -1,5 +1,5 @@
-/* ---------- Theme tokens: light is the default, night mode overrides ---------- */
-:root {
+/* ---------- Theme tokens: dark is the default, light mode overrides ---------- */
+:root[data-theme="light"] {
   --bg: #f3f5ff;
   --glow-1: rgba(139, 92, 246, 0.22);
   --glow-2: rgba(56, 189, 248, 0.28);
@@ -19,14 +19,12 @@
   --btn-to: #7c4ddb;
   --btn-text: #ffffff;
   --btn-shadow: rgba(91, 63, 209, 0.3);
-  --avatar-bg: linear-gradient(135deg, rgba(56, 189, 248, 0.3), rgba(139, 92, 246, 0.3));
-  --avatar-border: rgba(91, 63, 209, 0.35);
   --footer: #5f6a8f;
-  --font-head: "Times New Roman", Times, serif;
-  --font-body: Arial, Helvetica, sans-serif;
 }
 
-:root[data-theme="dark"] {
+:root {
+  --font-head: "Times New Roman", Times, serif;
+  --font-body: Arial, Helvetica, sans-serif;
   --bg: #080b1a;
   --glow-1: rgba(139, 92, 246, 0.38);
   --glow-2: rgba(56, 225, 255, 0.26);
@@ -46,8 +44,6 @@
   --btn-to: #8b5cf6;
   --btn-text: #07101f;
   --btn-shadow: rgba(56, 225, 255, 0.25);
-  --avatar-bg: linear-gradient(135deg, rgba(56, 225, 255, 0.22), rgba(139, 92, 246, 0.3));
-  --avatar-border: rgba(56, 225, 255, 0.4);
   --footer: #7f8ab3;
 }
 
@@ -112,8 +108,13 @@ ul {
 
 .logo {
   font-family: var(--font-head);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 700;
+}
+
+.logo span {
+  font-weight: 400;
+  color: var(--muted);
 }
 
 .navbar nav {
@@ -152,15 +153,15 @@ ul {
   border-color: var(--card-hover);
 }
 
-.theme-toggle .icon-sun {
+.theme-toggle .icon-moon {
   display: none;
 }
 
-:root[data-theme="dark"] .theme-toggle .icon-moon {
+:root[data-theme="light"] .theme-toggle .icon-sun {
   display: none;
 }
 
-:root[data-theme="dark"] .theme-toggle .icon-sun {
+:root[data-theme="light"] .theme-toggle .icon-moon {
   display: block;
 }
 
@@ -174,6 +175,85 @@ ul {
   grid-template-columns: 1.3fr 0.8fr;
   gap: 56px;
   align-items: center;
+}
+
+/* Profile photo above the name (save your picture as profile.jpg) */
+.photo,
+.mini-photo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+}
+
+.photo {
+  width: 140px;
+  height: 140px;
+  margin-bottom: 22px;
+  box-shadow: 0 0 0 4px var(--accent-dim), 0 12px 40px rgba(139, 92, 246, 0.25);
+}
+
+.photo img,
+.mini-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Small profile pinned to the left corner while scrolling */
+.mini-profile {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 8px;
+  background: var(--nav-bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+}
+
+.mini-profile.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.mini-photo {
+  flex: none;
+  width: 44px;
+  height: 44px;
+}
+
+.mini-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.mini-name {
+  font-family: var(--font-head);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.mini-title {
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
 .hello {
@@ -259,27 +339,9 @@ h1 {
 }
 
 .spec-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
   text-align: center;
   padding-bottom: 20px;
   border-bottom: 1px solid var(--line);
-}
-
-.avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-head);
-  font-size: 1.4rem;
-  font-weight: 700;
-  background: var(--avatar-bg);
-  color: var(--text);
-  border: 1px solid var(--avatar-border);
 }
 
 .spec-name {
@@ -495,6 +557,21 @@ footer {
 
   .grid {
     grid-template-columns: 1fr;
+  }
+
+  .mini-profile {
+    left: 10px;
+    bottom: 10px;
+    padding: 6px 14px 6px 6px;
+  }
+
+  .mini-photo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .mini-title {
+    display: none;
   }
 
   .projects .project:last-child {
