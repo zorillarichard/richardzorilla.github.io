@@ -12,8 +12,10 @@
   --spec-bg: rgba(22, 15, 46, 0.92);
   --line: rgba(196, 181, 253, 0.18);
   --text: #f4f0ff;
-  --muted: #b9b0d9;
+  --muted: #cdc6ea;
   --accent: #c4b5fd;
+  --mark-a: rgba(167, 139, 250, 0.5);
+  --mark-b: rgba(249, 168, 212, 0.5);
   --accent-2: #f9a8d4;
   --accent-3: #99f6e4;
   --accent-dim: rgba(196, 181, 253, 0.14);
@@ -34,20 +36,22 @@
   --glow-1: rgba(196, 181, 253, 0.5);
   --glow-2: rgba(253, 186, 116, 0.22);
   --glow-3: rgba(251, 182, 206, 0.38);
-  --surface: rgba(255, 255, 255, 0.74);
-  --surface-2: rgba(237, 230, 255, 0.85);
-  --spec-bg: rgba(255, 255, 255, 0.92);
-  --line: rgba(124, 92, 214, 0.2);
-  --text: #2b2147;
-  --muted: #6a5f8f;
-  --accent: #7c5cd6;
-  --accent-2: #d6659a;
+  --surface: rgba(255, 255, 255, 0.88);
+  --surface-2: rgba(234, 226, 255, 0.95);
+  --spec-bg: rgba(255, 255, 255, 0.95);
+  --line: rgba(91, 60, 196, 0.28);
+  --text: #120e29;
+  --muted: #3d3463;
+  --accent: #5b3cc4;
+  --accent-2: #c0357f;
+  --mark-a: rgba(167, 139, 250, 0.55);
+  --mark-b: rgba(251, 146, 182, 0.6);
   --accent-3: #0d9488;
   --accent-dim: rgba(124, 92, 214, 0.1);
-  --card-hover: rgba(124, 92, 214, 0.55);
+  --card-hover: rgba(91, 60, 196, 0.65);
   --nav-bg: rgba(248, 244, 255, 0.8);
-  --h1-from: #2b2147;
-  --h1-to: #7c5cd6;
+  --h1-from: #120e29;
+  --h1-to: #5b3cc4;
   --text-glow: rgba(124, 92, 214, 0.4);
   --btn-from: #7c5cd6;
   --btn-to: #c0589a;
@@ -76,24 +80,50 @@ html {
 .hero,
 .slide {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 body {
   font-family: var(--font-body);
-  background:
-    radial-gradient(900px 600px at 8% -5%, var(--glow-1), transparent 60%),
-    radial-gradient(800px 600px at 95% 10%, var(--glow-2), transparent 60%),
-    radial-gradient(900px 700px at 50% 105%, var(--glow-3), transparent 60%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   color: var(--text);
   line-height: 1.65;
   transition: background-color 0.3s, color 0.3s;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 600px at 8% -5%, var(--glow-1), transparent 60%),
+    radial-gradient(800px 600px at 95% 10%, var(--glow-2), transparent 60%),
+    radial-gradient(900px 700px at 50% 105%, var(--glow-3), transparent 60%);
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Highlighted words: bold, a bit bigger, and colored. Hover matches the subtitle. */
+mark,
+.hl {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--accent-2);
+  background: none;
+  cursor: default;
+  transition: color 0.3s, text-shadow 0.3s, letter-spacing 0.3s;
+}
+
+mark:hover,
+.hl:hover {
+  color: var(--accent);
+  text-shadow: 0 0 18px var(--text-glow);
+  letter-spacing: 0.5px;
 }
 
 a:focus-visible,
@@ -226,7 +256,7 @@ button {
   border: 2px solid var(--line);
   border-radius: 50%;
   cursor: zoom-in;
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.25s;
 }
 
 .photo {
@@ -238,7 +268,8 @@ button {
 
 .photo:hover,
 .mini-photo:hover {
-  transform: scale(1.04);
+  transform: translateY(-4px);
+  border-color: var(--card-hover);
 }
 
 .photo img,
@@ -307,7 +338,6 @@ h1:hover {
   background:
     linear-gradient(var(--spec-bg), var(--spec-bg)) padding-box,
     linear-gradient(135deg, var(--accent), var(--accent-2), var(--accent-3)) border-box;
-  backdrop-filter: blur(8px);
   box-shadow: 0 24px 70px rgba(139, 92, 246, 0.2), 0 0 0 6px var(--accent-dim);
 }
 
@@ -396,14 +426,17 @@ h1:hover {
   max-width: 1100px;
 }
 
-/* Each page's content rises into view as the slide arrives */
-.js .slide .slide-inner {
+/* Each page zooms in a little as it arrives */
+.js .slide .slide-inner,
+.js .hero > * {
   opacity: 0;
-  transform: translateY(48px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transform: scale(0.88);
+  transition: opacity 0.6s ease, transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform, opacity;
 }
 
-.js .slide.in-view .slide-inner {
+.js .slide.in-view .slide-inner,
+.js .hero.in-view > * {
   opacity: 1;
   transform: none;
 }
@@ -430,8 +463,15 @@ h2 {
   font-size: 1.05rem;
 }
 
-.section-text + .section-text {
-  margin-top: 14px;
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px 48px;
+  margin-top: 8px;
+}
+
+.about-grid .section-text {
+  max-width: none;
 }
 
 /* ---------- Cards ---------- */
@@ -451,7 +491,6 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 26px;
-  backdrop-filter: blur(6px);
   transition: border-color 0.2s, transform 0.2s;
 }
 
@@ -490,12 +529,36 @@ h2 {
   margin-top: 16px;
 }
 
-/* Empty square frames for your photos and videos */
+.project-list {
+  display: grid;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.project {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 28px;
+  align-items: center;
+}
+
+.project.solo {
+  grid-template-columns: 1fr;
+}
+
+.project.solo .media {
+  order: -1;
+}
+
+/* Four square frames for your pictures or videos */
 .media {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
-  margin-bottom: 18px;
+}
+
+.media-pair {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .media-frame {
@@ -505,20 +568,34 @@ h2 {
   border-radius: 12px;
   background: var(--surface-2);
   border: 1.5px dashed var(--line);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.media-frame:hover,
+.design-frame:hover {
+  transform: translateY(-4px);
+  border-color: var(--card-hover);
 }
 
 .media-frame img,
-.media-frame video {
+.media-frame video,
+.media-frame iframe {
   position: absolute;
   inset: 0;
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border: 0;
 }
 
 .media-frame img {
   cursor: zoom-in;
+}
+
+.media-frame img:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -3px;
 }
 
 .project .chips li {
@@ -527,184 +604,107 @@ h2 {
   border-color: transparent;
 }
 
-/* ---------- Contact & footer ---------- */
+/* ---------- 3D designs ---------- */
+.design-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.design {
+  margin: 0;
+}
+
+.design-frame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border: 1.5px dashed var(--line);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 50% 35%, var(--accent-dim), transparent 70%),
+    var(--surface);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.design-frame model-viewer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+  background: transparent;
+}
+
+.design figcaption {
+  margin-top: 10px;
+  text-align: center;
+  font-family: var(--font-head);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+/* ---------- Contact ---------- */
 .contact {
   text-align: center;
 }
 
 .contact .section-text {
-  margin: 0 auto 28px;
+  margin: 0 auto;
 }
 
-.btn {
-  display: inline-block;
-  padding: 12px 24px;
-  border-radius: 999px;
-  font-weight: 700;
-  border: 1px solid transparent;
-  transition: transform 0.2s, box-shadow 0.2s;
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 36px;
 }
 
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.primary {
-  background: linear-gradient(90deg, var(--btn-from), var(--btn-to));
-  color: var(--btn-text);
-  box-shadow: 0 6px 24px var(--btn-shadow);
-}
-
-.primary:hover {
-  box-shadow: 0 10px 32px var(--btn-shadow);
-}
-
-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  text-align: center;
-  padding: 22px 20px;
-  color: var(--footer);
-  border-top: 1px solid var(--line);
-  font-size: 0.9rem;
-}
-
-/* ---------- Side dots ---------- */
-.slide-dots {
-  position: fixed;
-  right: 22px;
-  top: 50%;
-  z-index: 9;
+.contact-card {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  transform: translateY(-50%);
-}
-
-.slide-dots a {
-  position: relative;
-  display: block;
-  width: 11px;
-  height: 11px;
-  border: 1.5px solid var(--muted);
-  border-radius: 50%;
-  transition: transform 0.2s, background 0.2s, border-color 0.2s, box-shadow 0.2s;
-}
-
-.slide-dots a::before {
-  content: "";
-  position: absolute;
-  inset: -8px;
-}
-
-.slide-dots a.active {
-  background: var(--accent);
-  border-color: var(--accent);
-  transform: scale(1.35);
-  box-shadow: 0 0 12px var(--text-glow);
-}
-
-.slide-dots a::after {
-  content: attr(data-label);
-  position: absolute;
-  right: 22px;
-  top: 50%;
-  padding: 3px 11px;
-  font-size: 0.75rem;
-  white-space: nowrap;
-  color: var(--text);
-  background: var(--nav-bg);
+  align-items: center;
+  padding: 30px 22px;
+  text-align: center;
+  background: var(--surface);
   border: 1px solid var(--line);
-  border-radius: 999px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-50%);
-  transition: opacity 0.2s;
+  border-radius: 16px;
+  transition: border-color 0.2s, transform 0.2s;
 }
 
-.slide-dots a:hover::after {
-  opacity: 1;
+.contact-card:hover {
+  border-color: var(--card-hover);
+  transform: translateY(-4px);
 }
 
-/* ---------- 3D design viewer ---------- */
-.viewer {
-  position: relative;
-  margin-top: 24px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at 50% 35%, var(--accent-dim), transparent 70%),
-    var(--surface);
-  backdrop-filter: blur(6px);
+.contact-card h3 {
+  margin: 14px 0 6px;
+  font-family: var(--font-head);
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
-.viewer model-viewer {
-  display: block;
-  width: 100%;
-  height: clamp(280px, 48vh, 460px);
-  --poster-color: transparent;
-  background: transparent;
+.contact-card p {
+  color: var(--muted);
+  font-size: 0.92rem;
 }
 
-.viewer-empty {
-  position: absolute;
-  inset: 0 0 62px 0;
+.contact-icon {
   display: grid;
   place-items: center;
-  padding: 24px;
-  text-align: center;
-  color: var(--muted);
-  pointer-events: none;
-}
-
-.viewer-empty[hidden] {
-  display: none;
-}
-
-.viewer-bar {
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 12px 14px;
-  border-top: 1px solid var(--line);
-}
-
-.model-list,
-.viewer-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.model-list button,
-.viewer-actions button,
-.upload-btn {
-  padding: 6px 14px;
-  font-size: 0.85rem;
-  color: var(--text);
-  background: var(--surface-2);
+  width: 64px;
+  height: 64px;
+  color: var(--accent);
+  background: var(--accent-dim);
   border: 1px solid var(--line);
-  border-radius: 999px;
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
+  border-radius: 50%;
+  transition: background 0.2s, color 0.2s;
 }
 
-.model-list button.active {
-  color: var(--btn-text);
-  background: linear-gradient(90deg, var(--btn-from), var(--btn-to));
+.contact-card:hover .contact-icon {
+  color: var(--bg);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
   border-color: transparent;
-}
-
-.model-list button:hover,
-.viewer-actions button:hover,
-.upload-btn:hover {
-  border-color: var(--card-hover);
 }
 
 /* ---------- Mini profile pinned to the left corner while scrolling ---------- */
@@ -821,6 +821,33 @@ footer {
   cursor: pointer;
 }
 
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  display: none;
+  width: 48px;
+  height: 48px;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: #f4f0ff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.lightbox-nav.prev { left: 20px; }
+.lightbox-nav.next { right: 20px; }
+
+.lightbox.has-nav .lightbox-nav {
+  display: block;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
 .lightbox-close:hover {
   background: rgba(255, 255, 255, 0.2);
 }
@@ -875,8 +902,23 @@ footer {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
-  .slide-dots {
-    display: none;
+  .project {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .media,
+  .project.solo .media {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .about-grid,
+  .contact-links {
+    grid-template-columns: 1fr;
+  }
+
+  .design-grid {
+    grid-template-columns: 1fr;
   }
 
   .hero {
@@ -931,20 +973,6 @@ footer {
     padding: 80px 6% 48px;
   }
 
-  .contact footer {
-    position: static;
-    margin-top: 40px;
-  }
-
-  .contact {
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .contact .slide-inner {
-    margin: auto 0;
-  }
-
   .mini-profile {
     left: 10px;
     bottom: 10px;
@@ -976,7 +1004,8 @@ footer {
     transition: none !important;
   }
 
-  .js .slide .slide-inner {
+  .js .slide .slide-inner,
+  .js .hero > * {
     transform: none;
   }
 
