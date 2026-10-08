@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Richard Zorilla | Computer Engineer</title>
-  <meta name="description" content="Richard Zorilla is a computer engineer working in embedded systems, hardware design, circuits, and reverse engineering.">
+  <title>Richard Zorilla | Computer Engineering</title>
+  <meta name="description" content="Richard Zorilla, computer engineering: embedded systems, microcontrollers, hardware design, circuits, and 3D design.">
   <script>
+    document.documentElement.classList.add("js");
     /* Apply saved theme before paint (dark is the default) */
     try {
       if (localStorage.getItem("theme") === "light") {
@@ -14,6 +15,8 @@
     } catch (e) {}
   </script>
   <link rel="stylesheet" href="style.css">
+  <!-- Lets visitors rotate and move your 3D designs (.glb files) -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 </head>
 <body>
   <div class="intro-screen" aria-hidden="true">
@@ -23,16 +26,32 @@
     </div>
   </div>
 
-  <a class="mini-profile" id="mini-profile" href="#home" aria-label="Back to top: Richard Zorilla, Computer Engineer">
-    <span class="mini-photo">
-      <svg class="photo-fallback" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-      <img src="profile.jpg" alt="" onerror="this.remove()">
-    </span>
-    <span class="mini-text">
+  <div class="mini-profile" id="mini-profile">
+    <button class="mini-photo" type="button" data-photo aria-label="View profile picture">
+      <svg class="photo-fallback" viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+      <img src="profile.jpg" alt="Richard Zorilla" onerror="this.remove()">
+    </button>
+    <a class="mini-text" href="#home" aria-label="Back to top">
       <span class="mini-name">Richard Zorilla</span>
-      <span class="mini-title">Computer Engineer</span>
-    </span>
-  </a>
+      <span class="mini-title">Computer Engineering</span>
+    </a>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Picture viewer">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close picture">&times;</button>
+    <img id="lightbox-img" alt="">
+  </div>
+
+  <nav class="slide-dots" id="slide-dots" aria-label="Page sections">
+    <a href="#home" data-label="Home" aria-label="Home"></a>
+    <a href="#about" data-label="About" aria-label="About"></a>
+    <a href="#skills" data-label="Skills" aria-label="Skills"></a>
+    <a href="#interests" data-label="Interests" aria-label="Interests"></a>
+    <a href="#projects" data-label="Embedded" aria-label="Embedded projects"></a>
+    <a href="#website" data-label="Website" aria-label="Website projects"></a>
+    <a href="#design" data-label="Design" aria-label="3D design"></a>
+    <a href="#contact" data-label="Contact" aria-label="Contact"></a>
+  </nav>
 
   <header class="navbar">
     <a class="logo" href="#home" aria-label="RZ Portfolio, home">RZ <span>Portfolio</span></a>
@@ -51,134 +70,215 @@
   </header>
 
   <main>
+    <!-- Slide 1: Home -->
     <section id="home" class="hero">
       <div class="hero-copy">
-        <div class="photo" aria-label="Profile photo">
+        <p class="hello">Hello, I'm</p>
+        <button class="photo" type="button" data-photo aria-label="View profile picture">
           <svg class="photo-fallback" viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
           <img src="profile.jpg" alt="Richard Zorilla" onerror="this.remove()">
-        </div>
-        <p class="hello">Hello, I'm</p>
+        </button>
         <h1>Richard Zorilla</h1>
-        <p class="subtitle">Computer Engineer</p>
+        <p class="subtitle">Computer Engineering</p>
         <p class="intro">I design and build hardware and embedded systems, from circuits and firmware to 3D-modelled enclosures. I like understanding how things work and turning that into working solutions.</p>
-        <div class="buttons">
-          <a class="btn primary" href="#projects">View my work</a>
-          <a class="btn secondary" href="#contact">Contact me</a>
-        </div>
       </div>
 
-      <aside class="spec" aria-label="Profile summary">
+      <aside class="spec" aria-label="Technical skills">
         <div class="spec-head">
           <p class="spec-name">Technical skills</p>
         </div>
         <dl>
-          <div><dt>Languages</dt><dd>C++, Java, MATLAB, PHP</dd></div>
-          <div><dt>Hardware</dt><dd>Verilog, Embedded systems</dd></div>
-          <div><dt>Design</dt><dd>Fusion 360</dd></div>
-          <div><dt>Focus</dt><dd>Hardware, circuits, reverse engineering</dd></div>
+          <div>
+            <dt>Languages</dt>
+            <dd><ul class="chips"><li>C++</li><li>Java</li><li>MATLAB</li><li>PHP</li></ul></dd>
+          </div>
+          <div>
+            <dt>Hardware</dt>
+            <dd><ul class="chips"><li>Verilog</li><li>ESP32</li><li>Arduino</li><li>Embedded systems</li></ul></dd>
+          </div>
+          <div>
+            <dt>Design</dt>
+            <dd><ul class="chips"><li>Fusion 360</li></ul></dd>
+          </div>
+          <div>
+            <dt>Focus</dt>
+            <dd><ul class="chips"><li>Hardware design</li><li>Circuits</li><li>Embedded</li></ul></dd>
+          </div>
         </dl>
       </aside>
     </section>
 
-    <section id="about" class="section">
-      <h2>About me</h2>
-      <p class="section-text">
-        I'm Richard Zorilla, a computer engineer with a strong foundation in programming and digital hardware.
-        I work in C++, Java, MATLAB, PHP, and Verilog, and I build embedded systems and 3D designs in Fusion 360.
-      </p>
-      <p class="section-text">
-        I'm most interested in the point where software meets hardware: designing circuits, programming
-        microcontrollers, and taking existing devices apart to learn how they work. I keep improving by building
-        hands-on projects.
-      </p>
+    <!-- Slide 2: About -->
+    <section id="about" class="slide">
+      <div class="slide-inner">
+        <h2>About me</h2>
+        <p class="section-text">
+          I'm Richard Zorilla, a computer engineer with a strong foundation in programming and digital hardware.
+          I work in C++, Java, MATLAB, PHP, and Verilog, and I build embedded systems and 3D designs in Fusion 360.
+        </p>
+        <p class="section-text">
+          I'm most interested in the point where software meets hardware: designing circuits and programming
+          microcontrollers such as the ESP32 and Arduino. I keep improving by building hands-on projects.
+        </p>
+      </div>
     </section>
 
-    <section id="skills" class="section">
-      <h2>Skills</h2>
-      <p class="section-text">The languages, tools, and areas I work in.</p>
-      <div class="grid">
-        <div class="card">
-          <h3>Programming</h3>
-          <ul class="chips">
-            <li>C++</li><li>Java</li><li>MATLAB</li><li>PHP</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Hardware &amp; embedded</h3>
-          <ul class="chips">
-            <li>Verilog</li><li>Embedded systems</li><li>Circuits</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>3D design</h3>
-          <ul class="chips">
-            <li>Fusion 360</li><li>CAD modelling</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Web &amp; tools</h3>
-          <ul class="chips">
-            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>Git</li><li>GitHub</li><li>VS Code</li>
-          </ul>
+    <!-- Slide 3: Skills -->
+    <section id="skills" class="slide">
+      <div class="slide-inner">
+        <h2>Skills</h2>
+        <p class="section-text">The languages, hardware, and tools I work with.</p>
+        <div class="grid">
+          <div class="card">
+            <h3>Programming</h3>
+            <ul class="chips"><li>C++</li><li>Java</li><li>MATLAB</li><li>PHP</li></ul>
+          </div>
+          <div class="card">
+            <h3>Hardware &amp; embedded</h3>
+            <ul class="chips"><li>Verilog</li><li>Embedded systems</li><li>Circuits</li></ul>
+          </div>
+          <div class="card wide">
+            <h3>Microcontrollers</h3>
+            <ul class="chips"><li>ESP32</li><li>ESP8266</li><li>Arduino</li><li>Raspberry Pi</li><li>and other boards</li></ul>
+          </div>
+          <div class="card">
+            <h3>3D design</h3>
+            <ul class="chips"><li>Fusion 360</li><li>CAD modelling</li></ul>
+          </div>
+          <div class="card">
+            <h3>Web &amp; tools</h3>
+            <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Git</li><li>GitHub</li><li>VS Code</li></ul>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="interests" class="section">
-      <h2>Interests</h2>
-      <p class="section-text">What I like to spend my time on.</p>
-      <div class="grid interests">
-        <div class="card">
-          <h3>Hardware design</h3>
-          <p>Designing and building physical systems from the ground up.</p>
-        </div>
-        <div class="card">
-          <h3>Embedded systems</h3>
-          <p>Writing efficient code for devices with real-world inputs and outputs.</p>
-        </div>
-        <div class="card">
-          <h3>Reverse engineering</h3>
-          <p>Taking devices apart to understand how they work and why they were built that way.</p>
-        </div>
-        <div class="card">
-          <h3>Circuits</h3>
-          <p>Analysing, prototyping, and debugging electronic circuits.</p>
+    <!-- Slide 4: Interests -->
+    <section id="interests" class="slide">
+      <div class="slide-inner">
+        <h2>Interests</h2>
+        <p class="section-text">I don't just want things to work. I want to know why they work, and how far I can push them.</p>
+        <div class="grid interests">
+          <div class="card">
+            <h3>Hardware design</h3>
+            <p>Every device starts as a problem on paper. I love turning that into something physical and reliable: choosing components, planning the layout, and refining until it holds up in the real world.</p>
+          </div>
+          <div class="card">
+            <h3>Embedded systems</h3>
+            <p>Firmware is where hardware comes alive. I'm drawn to the details: reading sensors, driving actuators, handling timing and interrupts, and getting the most out of a microcontroller.</p>
+          </div>
+          <div class="card">
+            <h3>Circuits</h3>
+            <p>From a simple sensor stage to a full control board, I enjoy analysing how a circuit behaves, prototyping it on the bench, and debugging until every signal does exactly what it should.</p>
+          </div>
+          <div class="card">
+            <h3>Designing</h3>
+            <p>I model enclosures and mechanical parts in Fusion 360 so the electronics and the housing are designed together, not as an afterthought.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section">
-      <h2>Projects</h2>
-      <p class="section-text">A selection of what I've built and designed.</p>
-      <div class="grid projects">
-        <article class="card project">
-          <h3>Robot Repacking System</h3>
-          <p>A semi-automatic system concept for weighing and repacking products such as salt, sugar, and oil.</p>
-          <ul class="chips"><li>Automation</li><li>Embedded</li></ul>
-        </article>
-        <article class="card project">
-          <h3>Embedded Design Project</h3>
-          <p>An engineering project focused on using electronics and embedded systems to solve a practical problem.</p>
-          <ul class="chips"><li>Electronics</li><li>Embedded systems</li></ul>
-        </article>
-        <article class="card project">
-          <h3>Personal Portfolio</h3>
-          <p>This responsive website, built as a simple place to showcase my skills, projects, and interests.</p>
-          <ul class="chips"><li>HTML</li><li>CSS</li></ul>
-        </article>
+    <!-- Slide 5: Projects - Embedded -->
+    <section id="projects" class="slide">
+      <div class="slide-inner wide-inner">
+        <p class="kicker">Projects</p>
+        <h2>Embedded</h2>
+        <div class="grid projects">
+          <article class="card project">
+            <!-- To add media, put an <img src="images/your-photo.jpg" alt="..."> or
+                 <video src="videos/your-video.mp4" controls></video> inside a frame below. -->
+            <div class="media">
+              <div class="media-frame"></div>
+              <div class="media-frame"></div>
+            </div>
+            <h3>Smart Swine Management System</h3>
+            <p>An embedded system with automated misting and feed optimization for swine management.</p>
+            <ul class="chips"><li>Embedded</li><li>Automation</li><li>Misting control</li><li>Feed optimization</li></ul>
+          </article>
+          <article class="card project">
+            <div class="media">
+              <div class="media-frame"></div>
+              <div class="media-frame"></div>
+            </div>
+            <h3>Robot Repacking System</h3>
+            <p>A semi-automatic system concept for weighing and repacking products such as salt, sugar, and oil.</p>
+            <ul class="chips"><li>Automation</li><li>Embedded</li></ul>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="section contact">
-      <h2>Let's connect</h2>
-      <p class="section-text">Have a project, question, or opportunity? Feel free to reach out.</p>
-      <a class="btn primary" href="mailto:zorillarichard88@gmail.com">Email me</a>
+    <!-- Slide 6: Projects - Website -->
+    <section id="website" class="slide">
+      <div class="slide-inner wide-inner">
+        <p class="kicker">Projects</p>
+        <h2>Website</h2>
+        <div class="grid projects">
+          <article class="card project">
+            <div class="media">
+              <div class="media-frame"></div>
+              <div class="media-frame"></div>
+            </div>
+            <h3>A.S Ello Survey</h3>
+            <p>A survey website built for A.S Ello.</p>
+            <ul class="chips"><li>Website</li><li>Survey</li></ul>
+          </article>
+          <article class="card project">
+            <div class="media">
+              <div class="media-frame"></div>
+              <div class="media-frame"></div>
+            </div>
+            <h3>Personal Portfolio</h3>
+            <p>This responsive website, built as a place to showcase my skills, projects, and interests.</p>
+            <ul class="chips"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 7: Projects - Design (3D viewer) -->
+    <section id="design" class="slide">
+      <div class="slide-inner wide-inner">
+        <p class="kicker">Projects</p>
+        <h2>Design</h2>
+        <p class="section-text">My 3D designs from Fusion 360. Drag to rotate and right-click drag (or two fingers) to move.</p>
+
+        <div class="viewer">
+          <model-viewer id="viewer" src="models/design-1.glb" alt="3D design" camera-controls disable-zoom auto-rotate rotation-per-second="20deg" touch-action="pan-y" shadow-intensity="1" environment-image="neutral" exposure="1.1"></model-viewer>
+          <div class="viewer-empty" id="viewer-empty">
+            <p>No 3D design loaded yet.<br>Use "Upload .glb" below, or save a file as <strong>models/design-1.glb</strong>.</p>
+          </div>
+          <div class="viewer-bar">
+            <!-- Add more designs: copy a button and change data-model to your file in the models folder -->
+            <div class="model-list" id="model-list">
+              <button type="button" class="active" data-model="models/design-1.glb">Design 1</button>
+            </div>
+            <div class="viewer-actions">
+              <button type="button" id="zoom-out" aria-label="Zoom out">&minus;</button>
+              <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+              <button type="button" id="view-reset">Reset view</button>
+              <label class="upload-btn">Upload .glb
+                <input type="file" id="model-upload" accept=".glb,model/gltf-binary" hidden>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 8: Contact -->
+    <section id="contact" class="slide contact">
+      <div class="slide-inner">
+        <h2>Let's connect</h2>
+        <p class="section-text">Have a project, question, or opportunity? Feel free to reach out.</p>
+        <a class="btn primary" href="mailto:zorillarichard88@gmail.com">Email me</a>
+      </div>
+      <footer>
+        <p>© 2026 Richard Zorilla. Built with HTML &amp; CSS.</p>
+      </footer>
     </section>
   </main>
-
-  <footer>
-    <p>© 2026 Richard Zorilla. Built with HTML &amp; CSS.</p>
-  </footer>
 
   <script>
     (function () {
@@ -186,7 +286,7 @@
       var toggle = document.getElementById("theme-toggle");
       var navbar = document.querySelector(".navbar");
 
-      /* Night mode toggle */
+      /* Light / night mode toggle (dark is the default) */
       function syncToggle() {
         var light = root.getAttribute("data-theme") === "light";
         toggle.setAttribute("aria-pressed", light);
@@ -212,15 +312,119 @@
         lastY = y;
       }, { passive: true });
 
-      /* Show a small profile in the left corner once the hero name has scrolled out of view */
+      /* Slides: reveal each page's content as it arrives, and highlight the matching side dot */
+      var slides = document.querySelectorAll(".slide");
+      var dots = document.querySelectorAll("#slide-dots a");
+      if ("IntersectionObserver" in window) {
+        var reveal = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              reveal.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        Array.prototype.forEach.call(slides, function (s) { reveal.observe(s); });
+
+        var current = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) { return; }
+            Array.prototype.forEach.call(dots, function (d) {
+              d.classList.toggle("active", d.getAttribute("href") === "#" + entry.target.id);
+            });
+          });
+        }, { rootMargin: "-45% 0px -45% 0px" });
+        Array.prototype.forEach.call(document.querySelectorAll(".hero, .slide"), function (s) { current.observe(s); });
+      } else {
+        Array.prototype.forEach.call(slides, function (s) { s.classList.add("in-view"); });
+      }
+
+      /* Small profile in the left corner once the hero name has scrolled out of view */
       var mini = document.getElementById("mini-profile");
-      var heroName = document.querySelector(".hero-copy");
+      var heroCopy = document.querySelector(".hero-copy");
       if ("IntersectionObserver" in window) {
         new IntersectionObserver(function (entries) {
           var e = entries[0];
           mini.classList.toggle("show", !e.isIntersecting && e.boundingClientRect.top < 0);
-        }).observe(heroName);
+        }).observe(heroCopy);
       }
+
+      /* Click a profile picture or project photo to view it full size */
+      var lightbox = document.getElementById("lightbox");
+      var lightboxImg = document.getElementById("lightbox-img");
+      var closeBtn = document.getElementById("lightbox-close");
+      var lastFocus = null;
+
+      function openLightbox(src, alt, trigger) {
+        lastFocus = trigger;
+        lightboxImg.src = src;
+        lightboxImg.alt = alt || "";
+        lightbox.classList.add("open");
+        closeBtn.focus();
+      }
+      function closeLightbox() {
+        lightbox.classList.remove("open");
+        if (lastFocus && lastFocus.focus) { lastFocus.focus(); }
+      }
+      Array.prototype.forEach.call(document.querySelectorAll("[data-photo]"), function (btn) {
+        btn.addEventListener("click", function () {
+          var img = btn.querySelector("img");
+          if (img) { openLightbox(img.currentSrc || img.src, img.alt, btn); }
+        });
+      });
+      document.addEventListener("click", function (e) {
+        var img = e.target.closest ? e.target.closest(".media-frame img") : null;
+        if (img) { openLightbox(img.currentSrc || img.src, img.alt, img); }
+      });
+      closeBtn.addEventListener("click", closeLightbox);
+      lightbox.addEventListener("click", function (e) {
+        if (e.target === lightbox) { closeLightbox(); }
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && lightbox.classList.contains("open")) { closeLightbox(); }
+      });
+
+      /* 3D design viewer */
+      var mv = document.getElementById("viewer");
+      var empty = document.getElementById("viewer-empty");
+      var list = document.getElementById("model-list");
+      var upload = document.getElementById("model-upload");
+      var objectUrl = null;
+
+      mv.addEventListener("load", function () { empty.hidden = true; });
+      mv.addEventListener("error", function () { empty.hidden = false; });
+
+      list.addEventListener("click", function (e) {
+        var btn = e.target.closest("button[data-model]");
+        if (!btn) { return; }
+        Array.prototype.forEach.call(list.children, function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        mv.src = btn.getAttribute("data-model");
+      });
+
+      upload.addEventListener("change", function () {
+        var file = upload.files && upload.files[0];
+        if (!file) { return; }
+        if (objectUrl) { URL.revokeObjectURL(objectUrl); }
+        objectUrl = URL.createObjectURL(file);
+        Array.prototype.forEach.call(list.children, function (b) { b.classList.remove("active"); });
+        mv.src = objectUrl;
+        upload.value = "";
+      });
+
+      function zoom(factor) {
+        if (!mv.getCameraOrbit) { return; }
+        var o = mv.getCameraOrbit();
+        mv.cameraOrbit = o.theta + "rad " + o.phi + "rad " + (o.radius * factor) + "m";
+      }
+      document.getElementById("zoom-in").addEventListener("click", function () { zoom(0.8); });
+      document.getElementById("zoom-out").addEventListener("click", function () { zoom(1.25); });
+      document.getElementById("view-reset").addEventListener("click", function () {
+        mv.cameraOrbit = "auto auto auto";
+        mv.cameraTarget = "auto auto auto";
+        mv.fieldOfView = "auto";
+        if (mv.jumpCameraToGoal) { mv.jumpCameraToGoal(); }
+      });
     })();
   </script>
 </body>
